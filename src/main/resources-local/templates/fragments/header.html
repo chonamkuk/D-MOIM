@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+
+<header th:fragment="headerFragment">
+    <nav class="light-blue lighten-1" role="navigation" >
+        <div class="nav-wrapper container">
+        <a id="logo-container" href="/" class="brand-logo" style="width: 118.800; height: 65px;">
+            로고영역
+        </a>
+
+            <th:block sec:authorize="!hasAuthority('ADMIN')">
+                <!-- 일반 사용자 메뉴 -->
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="/as/list.do">AS 서비스</a></li>
+                </ul>
+
+                <ul id="nav-mobile" class="sidenav">
+                    <li>
+                        <div class="user-view" style="background-color: #4B3949;">
+                            <a href="#user" class="avatar" style="width: 182.775px; height: 100px;">로고영역</a>
+                        </div>
+                    </li>
+                    <li><a href="/as/list.do">AS 서비스</a></li>
+                </ul>
+                <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            </th:block>
+        </div>
+    </nav>
+
+    <!-- alert 모달 -->
+    <div id="alertModal" class="modal">
+        <div class="modal-content">
+            <h4></h4>
+            <p></p>
+        </div>
+        <div class="modal-footer">
+            <a class="modal-close waves-effect waves-green btn-flat">확인</a>
+        </div>
+    </div>
+
+    <!-- 이미지뷰 모달 -->
+    <div id="imageModal" class="modal" style="width: 90%;">
+        <div class="img-container">
+            <div class="modal-slide" style="margin-bottom: 0px; background-image: url('/static/image/bike-sunset.jpg'); background-size: contain;">
+                <div id="numbertext" class="numbertext"></div>
+                <i class="material-icons modal-close" style="float: right;">close</i>
+            </div>
+            <a class="prev">❮</a>
+            <a class="next">❯</a>
+        </div>
+    </div>
+
+    <!-- confirm 모달-->
+    <div id="confirmModal" class="modal">
+        <div class="modal-content">
+            <h4></h4>
+            <p></p>
+        </div>
+        <div class="modal-footer">
+            <a class="modal-close waves-effect waves-green btn-flat cancel">취소</a>
+            <a class="modal-close waves-effect waves-green btn-flat confirm">확인</a>
+        </div>
+    </div>
+</header>
+</html>
