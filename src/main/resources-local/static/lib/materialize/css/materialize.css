@@ -796,7 +796,7 @@
 }
 
 .light-blue.lighten-1 {
-  background-color: #4B3949 !important;
+  background-color: #2F3437 !important;
 }
 
 .light-blue-text.text-lighten-1 {
@@ -2116,7 +2116,7 @@
 }
 
 .black {
-  background-color: #4B3949 !important;
+  background-color: #2F3437 !important;
 }
 
 .black-text {
@@ -5259,7 +5259,7 @@ small {
 .btn, .btn-large, .btn-small {
   text-decoration: none;
   color: #fff;
-  background-color: #26a69a;
+  background-color: #2EAADC;
   text-align: center;
   letter-spacing: .5px;
   -webkit-transition: background-color .2s ease-out;

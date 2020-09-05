@@ -174,7 +174,7 @@ table {
 /* Customized CSS */
 
 body {
-    background-color: #4B3949;
+    background-color: #2F3437;
     color: #ffffff;
 }
 
@@ -289,6 +289,9 @@ body {
     position: relative;
 }
 
+.centered {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
 
-
-/* 이미지 모달 */
