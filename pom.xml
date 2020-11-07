@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>kr.co.bikego</groupId>
-    <artifactId>bikego</artifactId>
+    <groupId>kr.co.dmoim</groupId>
+    <artifactId>dmoim</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>${packaging.type}</packaging>
 
 
     <profiles>
@@ -22,6 +20,7 @@
             <properties>
                 <environment>local</environment>
                 <tomcatScope>compile</tomcatScope>
+                <packaging.type>war</packaging.type>
             </properties>
         </profile>
 
@@ -29,7 +28,9 @@
             <id>prod</id>
             <properties>
                 <environment>prod</environment>
-                <tomcatScope>provided</tomcatScope>
+<!--                <tomcatScope>provided</tomcatScope>-->
+                <tomcatScope>compile</tomcatScope>
+                <packaging.type>jar</packaging.type>
             </properties>
         </profile>
     </profiles>
@@ -45,11 +46,6 @@
 
     <!-- Add typical dependencies for a web application -->
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -150,6 +146,12 @@
             <groupId>org.thymeleaf.extras</groupId>
             <artifactId>thymeleaf-extras-springsecurity5</artifactId>
             <version>3.0.4.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>2.3.8</version>
         </dependency>
 
     </dependencies>
