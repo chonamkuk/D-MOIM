@@ -46,40 +46,48 @@ public class MeetController {
      * @throws Exception
      */
     @PostMapping("/write.do")
-    public String write(MeetDto meetDto, @RequestParam(value = "idAccount", required = false) List<String> idAccounts, @AuthenticationPrincipal AccountDto accountSession) throws Exception {
-        meetDto.setStatMeet(MeetStat.A);
-        meetDto.setYnDel("N");
-        meetDto.setRegDt(LocalDateTime.now());
-        meetDto.setPasswordMeet(aes.encrypt(meetDto.getPasswordMeet()));
+    public String write(MeetDto meetDto,
+                        MeetMemberDto meetMemberDto,
+//                        @RequestParam(value = "idAccount", required = false) List<String> idAccounts,
+                        List<AccountDto> accountDtoList,
+                        @AuthenticationPrincipal AccountDto accountSession) throws Exception {
+        if(!meetDto.getPasswordMeet().isEmpty()) meetDto.setPasswordMeet(aes.encrypt(meetDto.getPasswordMeet()));
 //        idAccounts.add(accountSession.getIdAccount()); // todo: 로그인 구현 후 작성자 아이디 추가
 
-        System.out.println(meetDto);
-        Long seqMeet = meetService.save(meetDto, idAccounts, accountSession);
-        return "redirect:/meet/detail.do?seqMeet="+seqMeet;
+//        Long seqMeet = meetService.save(meetDto, idAccounts, accountSession);
+        return "redirect:/meet/detail.do?seqMeet="+0;
     }
 
     /**
-     * 모이 상세조회
+     * 모임 상세조회
      * @param model
-     * @param meetDto
-     * @param searchDto
-     * @param pageable
-     * @param response
-     * @param request
      * @return
      * @throws Exception
      */
     @GetMapping("/detail.do")
-    public String detail(Model model, MeetDto meetDto, SearchDto searchDto, final PageRequest pageable
-            , HttpServletResponse response, HttpServletRequest request) throws Exception {
+    public String detail(Model model, MeetDto meetDto) throws Exception {
 
         MeetDto resultDto = meetService.getDetail(meetDto.getSeqMeet());
-
         model.addAttribute("resultDto", resultDto);
-        model.addAttribute("searchDto", searchDto);
-        model.addAttribute("pagingResult", pageable);
 
         return "meet/detail";
+    }
+
+    @PostMapping("/update.do")
+    public String update(Model model, MeetDto meetDto,
+                         @RequestParam(value = "idAccount", required = false) List<String> idAccounts,
+                         @AuthenticationPrincipal AccountDto accountSession) throws Exception {
+
+        meetDto.setModDt(LocalDateTime.now());
+//        if(!meetDto.getPasswordMeet().isEmpty()) meetDto.setPasswordMeet(aes.encrypt(meetDto.getPasswordMeet()));
+
+//        for(String idAccount : idAccounts) {
+////
+////        }
+
+        MeetDto resultDto = meetService.update(meetDto, idAccounts, accountSession);
+
+        return "redirect:/meet/detail.do?seqMeet="+resultDto.getSeqMeet();
     }
 
 

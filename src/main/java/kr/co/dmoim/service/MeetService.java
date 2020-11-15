@@ -1,5 +1,6 @@
 package kr.co.dmoim.service;
 
+import kr.co.dmoim.domain.code.MeetStat;
 import kr.co.dmoim.domain.entity.AccountEntity;
 import kr.co.dmoim.domain.entity.AsEntity;
 import kr.co.dmoim.domain.entity.MeetEntity;
@@ -12,6 +13,7 @@ import kr.co.dmoim.util.AES256Util;
 import kr.co.dmoim.util.ModelMapperUtils;
 import kr.co.dmoim.util.SearchSpec;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,6 +21,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -66,10 +69,14 @@ public class MeetService {
     }
 
     public Long save(MeetDto meetDto, List<String> idAccounts, AccountDto accountSession) throws Exception {
+        meetDto.setStatMeet(MeetStat.A);
+        meetDto.setYnDel("N");
+        meetDto.setRegDt(LocalDateTime.now());
 
         // todo: 한번에 저장할 수 있도록 개선
         // 모임 생성
-        MeetEntity meetEntity = meetRepository.save(meetDto.toEntity());
+//        MeetEntity meetEntity = meetRepository.save(meetDto.toEntity());
+        MeetEntity meetEntity = meetDto.toEntity();
 
         // 반복 돌면서 참여자 정보 생성
         for(String idAccount : idAccounts) {
@@ -79,8 +86,11 @@ public class MeetService {
                     .meetEntity(meetEntity)
                     .build();
 
-            meetMemberRepository.save(meetMemberEntity);
+//            meetMemberRepository.save(meetMemberEntity);
+            meetEntity.getMeetMembers().add(meetMemberEntity);
         }
+
+        meetRepository.save(meetEntity);
 
         return meetEntity.getSeqMeet();
     }
@@ -97,4 +107,42 @@ public class MeetService {
 //        Page<MeetEntity> entityPage = null;
 //        entityPage = meetRepository.findAll((Specification<MeetEntity>) SearchSpec)
 //    }
+
+    public MeetDto update(MeetDto meetDto, List<String> idAccounts, AccountDto accountSession) throws Exception {
+        MeetEntity meetEntity = meetRepository.getOne(meetDto.getSeqMeet());
+
+//        meetEntity.setTitleMeet(meetDto.getTitleMeet());
+//        meetEntity.setDateMeet(meetDto.getDateMeet());
+//        meetEntity.setTimeStart(meetDto.getTimeStart());
+//        meetEntity.setTimeEnd(meetDto.getTimeEnd());
+//        meetEntity.setLatMeet(meetDto.getLatMeet());
+//        meetEntity.setLonMeet(meetDto.getLonMeet());
+//        meetEntity.setLocationMeet(meetDto.getLocationMeet());
+//        meetEntity.setDtlLocationMeet(meetDto.getDtlLocationMeet());
+//        meetEntity.setPasswordMeet(meetDto.getPasswordMeet());
+//        meetEntity.setPrevMeet(meetDto.getPrevMeet());
+//        if(!meetDto.getTypeMeet().equals("")) meetEntity.setTypeMeet(meetDto.getTypeMeet());
+//        if(!meetDto.getStatMeet().equals("")) meetEntity.setStatMeet(meetDto.getStatMeet());
+////        meetEntity.setModifier(meetDto.getModifier());
+//        meetEntity.setModDt(meetDto.getModDt());
+//        meetEntity.setYnDel(meetDto.getYnDel());
+
+        ModelMapperUtils.copyNonNullProperties(meetDto.toEntity(), meetEntity);
+
+        // 반복 돌면서 참여자 정보 생성
+//        List<MeetMemberEntity> meetMembers = new ArrayList<>();
+//        for(String idAccount : idAccounts) {
+//            AccountEntity accountEntity = accountRepository.findByIdAccount(idAccount).get();
+//            MeetMemberEntity meetMemberEntity = MeetMemberEntity.builder()
+//                    .accountEntity(accountEntity)
+//                    .meetEntity(meetEntity)
+//                    .build();
+//
+//            meetMembers.add(meetMemberEntity);
+//        }
+
+//        meetEntity.setMeetMembers(meetMembers);
+
+        return ModelMapperUtils.getModelMapper().map(meetEntity, MeetDto.class);
+    }
 }

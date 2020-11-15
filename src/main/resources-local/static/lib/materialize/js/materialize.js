@@ -9969,7 +9969,13 @@ $jscomp.polyfill = function (e, r, p, m) {
           this.minutesView.appendChild(tick[0]);
         }
       }
-    }, {
+    }, {        $('.timepicker').timepicker({
+                    twelveHour: true,
+                    i18n: {
+                        'AM': '오전',
+                        'PM': '오후'
+                    }
+                });
       key: "_handleAmPmClick",
       value: function _handleAmPmClick(e) {
         var $btnClicked = $(e.target);

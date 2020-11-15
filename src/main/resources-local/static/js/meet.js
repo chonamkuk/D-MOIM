@@ -1,7 +1,5 @@
 $(document).ready(function(){
         meetCommon = new meetCommon();
-        let searchPage;
-        let hasNextPage = false;
 
         $('.datepicker').datepicker({
             format: 'yyyy-mm-dd'
@@ -14,15 +12,15 @@ $(document).ready(function(){
             onOpenEnd: function(e){
                 let modalId = $(this).attr('id');
                 //let functionName = $('#'+modalId).attr('data-function-name');
-                if(location.href.split('/').pop() != '#' + modalId) {
-                    window.history.pushState({}, '', location.pathname + '/#' + $(this).attr('id'));
+                if(location.href.split('#').pop() != modalId) {
+                    window.history.pushState({}, '', location.href + '#' + $(this).attr('id'));
                 }
                 modalStack.push(modalId);
                 //window[functionName]();
                 meetCommon.setCollectionHeight();
             },
             onCloseStart: function(e){
-                if(location.href.split('/').pop() == '#' + $(this).attr('id')) {
+                if(location.href.split('#').pop() == $(this).attr('id')) {
                     window.history.back();
                 }
             },
@@ -61,7 +59,6 @@ $(document).ready(function(){
             let scrollHeight = $(this).prop('scrollHeight');
             let ulHeight = $(this).height();
             let scrollTop = Number($(this).scrollTop());
-
             if(scrollTop >= (scrollHeight - ulHeight - 0.5) && hasNextPage) {
                 console.info('더보기 호출');
                 meetCommon.searchMember(searchPage+1);
@@ -116,6 +113,9 @@ $(document).ready(function(){
         memberChipObserver.observe(target, {childList: true});
 });
 
+
+let searchPage;
+let hasNextPage = false;
 function meetCommon() {
 
     // 모임 참여자 검색 이벤트

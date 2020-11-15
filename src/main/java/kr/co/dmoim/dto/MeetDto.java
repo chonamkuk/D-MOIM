@@ -20,13 +20,14 @@ import java.util.List;
 @Setter
 //@ToString
 @NoArgsConstructor
-@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
+//@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 public class MeetDto {
 
     private Long seqMeet;
     private String titleMeet;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateMeet;
+//    @DateTimeFormat(pattern = "hh:mm", iso = DateTimeFormat.ISO.TIME)
     @DateTimeFormat(pattern = "HH:mm")
     private LocalTime timeStart;
     @DateTimeFormat(pattern = "HH:mm")
@@ -46,7 +47,7 @@ public class MeetDto {
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime modDt;
     private String ynDel;
-    private List<MeetMemberDto> meetMembers;
+    private List<MeetMemberDto> meetMembers = new ArrayList<>();
 
     public MeetEntity toEntity() {
         MeetEntity meetEntity = MeetEntity.builder()

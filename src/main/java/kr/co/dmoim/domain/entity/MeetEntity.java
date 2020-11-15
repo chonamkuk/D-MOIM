@@ -71,10 +71,10 @@ public class MeetEntity {
 //    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime regDt;
 
-    @Column(length = 20, name = "modifier", updatable = false)
+    @Column(length = 20, name = "modifier")
     private String modifier;
 
-    @Column(name = "moddt", updatable = false)
+    @Column(name = "moddt")
     private LocalDateTime modDt;
 
     @Column(length = 1, name = "del_yn")
