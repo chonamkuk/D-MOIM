@@ -46,16 +46,12 @@ public class MeetController {
      * @throws Exception
      */
     @PostMapping("/write.do")
-    public String write(MeetDto meetDto,
-                        MeetMemberDto meetMemberDto,
-//                        @RequestParam(value = "idAccount", required = false) List<String> idAccounts,
-                        List<AccountDto> accountDtoList,
-                        @AuthenticationPrincipal AccountDto accountSession) throws Exception {
+    public String write(MeetDto meetDto, @AuthenticationPrincipal AccountDto accountSession) throws Exception {
         if(!meetDto.getPasswordMeet().isEmpty()) meetDto.setPasswordMeet(aes.encrypt(meetDto.getPasswordMeet()));
 //        idAccounts.add(accountSession.getIdAccount()); // todo: 로그인 구현 후 작성자 아이디 추가
 
-//        Long seqMeet = meetService.save(meetDto, idAccounts, accountSession);
-        return "redirect:/meet/detail.do?seqMeet="+0;
+        Long seqMeet = meetService.save(meetDto);
+        return "redirect:/meet/detail.do?seqMeet="+seqMeet;
     }
 
     /**
@@ -74,20 +70,14 @@ public class MeetController {
     }
 
     @PostMapping("/update.do")
-    public String update(Model model, MeetDto meetDto,
-                         @RequestParam(value = "idAccount", required = false) List<String> idAccounts,
-                         @AuthenticationPrincipal AccountDto accountSession) throws Exception {
+    public String update(MeetDto meetDto, @AuthenticationPrincipal AccountDto accountSession) throws Exception {
 
         meetDto.setModDt(LocalDateTime.now());
 //        if(!meetDto.getPasswordMeet().isEmpty()) meetDto.setPasswordMeet(aes.encrypt(meetDto.getPasswordMeet()));
 
-//        for(String idAccount : idAccounts) {
-////
-////        }
+        meetService.save(meetDto);
 
-        MeetDto resultDto = meetService.update(meetDto, idAccounts, accountSession);
-
-        return "redirect:/meet/detail.do?seqMeet="+resultDto.getSeqMeet();
+        return "redirect:/meet/detail.do?seqMeet="+meetDto.getSeqMeet();
     }
 
 

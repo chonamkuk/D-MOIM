@@ -35,6 +35,9 @@
                 $('#confirmModal').find('p').text('수정 하시겠습니까?');
                 $('#confirmModal').find('.confirm').on('click', function(){
                     //$('#passwordAs').val(CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse($('#passwordAs').val())));
+                    $('#memberInput [name="idAccount"]').each(function(index, item){
+                        $(item).attr('name', 'meetMembers['+ index +'].accountDto.idAccount');
+                    });
                     processed = true;
                     $('#updateForm').submit();
                 })

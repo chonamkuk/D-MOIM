@@ -1,9 +1,6 @@
 package kr.co.dmoim.domain.entity;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
@@ -11,6 +8,7 @@ import java.util.ArrayList;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@Setter
 @Entity
 @DynamicUpdate
 @Table(name = "meeting_member")
@@ -25,7 +23,7 @@ public class MeetMemberEntity {
     @JoinColumn(name = "meet_seq")
     private MeetEntity meetEntity;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "account_id")
     private AccountEntity accountEntity;
 
@@ -37,9 +35,6 @@ public class MeetMemberEntity {
 
     @Builder
     public MeetMemberEntity(Long seqMember, MeetEntity meetEntity, AccountEntity accountEntity, String nameMember, String emailMember) {
-        if(meetEntity.getMeetMembers() == null) {
-            meetEntity.setMeetMembers(new ArrayList<MeetMemberEntity>());
-        }
         this.seqMember = seqMember;
         this.meetEntity = meetEntity;
         this.accountEntity = accountEntity;

@@ -108,4 +108,25 @@ public class MeetEntity {
         this.ynDel = ynDel;
         this.meetMembers = meetMembers;
     }
+
+    public void setMeetMembers(List<MeetMemberEntity> meetMembers){
+        for(MeetMemberEntity meetMemberEntity : meetMembers) {
+            this.addMeetMember(meetMemberEntity);
+        }
+    }
+
+    public void addMeetMember(MeetMemberEntity meetMemberEntity) {
+//        MeetMemberEntity meetMemberEntity = new MeetMemberEntity();
+//        meetMemberEntity.setAccountEntity(accountEntity);
+//        meetMemberEntity.setNameMember(nameMember);
+//        meetMemberEntity.setEmailMember(emailMember);
+        System.out.println(meetMemberEntity.getAccountEntity().getIdAccount());
+        meetMemberEntity.setMeetEntity(this);
+
+        if(meetMembers == null) {
+            meetMembers = new ArrayList<>();
+        } else {
+            meetMembers.add(meetMemberEntity);
+        }
+    }
 }

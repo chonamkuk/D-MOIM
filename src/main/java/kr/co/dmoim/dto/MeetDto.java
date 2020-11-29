@@ -79,7 +79,7 @@ public class MeetDto {
     public MeetDto(Long seqMeet, String titleMeet, LocalDate dateMeet, LocalTime timeStart, LocalTime timeEnd,
                       BigDecimal latMeet, BigDecimal lonMeet, String locationMeet, String dtlLocationMeet, String passwordMeet,
                       Long prevMeet, MeetType typeMeet, MeetStat statMeet, String register, LocalDateTime regDt, String modifier,
-                      LocalDateTime modDt, String ynDel, List meetMembers) {
+                      LocalDateTime modDt, String ynDel, List<MeetMemberDto> meetMembers) {
         this.seqMeet = seqMeet;
         this.titleMeet = titleMeet;
         this.dateMeet = dateMeet;
@@ -107,4 +107,12 @@ public class MeetDto {
 //        }
 //        meetMembers.add(meetMemberDto);
 //    }
+
+    public void setMeetMembers(List<MeetMemberDto> meetMembers) {
+        for(MeetMemberDto meetMemberDto : meetMembers) {
+            meetMemberDto.setMeetDto(this);
+        }
+        this.meetMembers = meetMembers;
+    }
+
 }
