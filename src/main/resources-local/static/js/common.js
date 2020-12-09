@@ -1,10 +1,6 @@
 $(document).ready(function(){
+    comn = new common();
     imgComn = new imageCommon();
-
-    $('[id*="fileInput"]').on("change", function(e){
-        console.info(e)
-        console.info(this)
-    });
 });
 
 function imageCommon() {
@@ -205,33 +201,50 @@ function imageCommon() {
 //    }
 }
 
-function chkword(obj, maxByte) {
+function common() {
 
-    var strValue = obj.value;
-    var strLen = strValue.length;
-    var totalByte = 0;
-    var len = 0;
-    var oneChar = "";
-    var str2 = "";
+    // 문자열 길이 체크
+    this.checkTextLength = function(obj, maxByte){
+        let strValue = obj.value;
+        let strLen = strValue.length;
+        let totalByte = 0;
+        let len = 0;
+        let oneChar = "";
+        let str2 = "";
 
-    for (var i = 0; i < strLen; i++) {
-        oneChar = strValue.charAt(i);
-        if (escape(oneChar).length > 4) {
-            totalByte += 2;
-        } else {
-            totalByte++;
+        for (var i = 0; i < strLen; i++) {
+            oneChar = strValue.charAt(i);
+            if (escape(oneChar).length > 4) {
+                totalByte += 2;
+            } else {
+                totalByte++;
+            }
+
+            // 입력한 문자 길이보다 넘치면 잘라내기 위해 저장
+            if (totalByte <= maxByte) {
+                len = i + 1;
+            }
         }
 
-        // 입력한 문자 길이보다 넘치면 잘라내기 위해 저장
-        if (totalByte <= maxByte) {
-            len = i + 1;
+        // 넘어가는 글자는 자른다.
+        if (totalByte > maxByte) {
+            alert(maxByte + "자를 초과 입력 할 수 없습니다.");
+            str2 = strValue.substr(0, len);
+            obj.value = str2;
         }
     }
 
-    // 넘어가는 글자는 자른다.
-    if (totalByte > maxByte) {
-        alert(maxByte + "자를 초과 입력 할 수 없습니다.");
-        str2 = strValue.substr(0, len);
-        obj.value = str2;
+    // 데이터 로딩중 사용자조작 방지
+    this.preLoading = function(){
+        $('#loading-circle').show();
+        $('#loading-overlay').show();
+        $('body').css('pointer-events', 'none');
+    }
+
+    // 조작방지 화면 해제
+    this.afterLoading = function(){
+        $('#loading-circle').hide();
+        $('#loading-overlay').hide();
+        $('body').css('pointer-events', '');
     }
 }

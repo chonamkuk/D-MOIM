@@ -174,7 +174,7 @@ table {
 /* Customized CSS */
 
 body {
-    background-color: #4B3949;
+    background-color: #2F3437;
     color: #ffffff;
 }
 
@@ -289,6 +289,150 @@ body {
     position: relative;
 }
 
+.centered {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
 
+.loading-circle {
+    display: none;
+    position: absolute;
+    top: 45%;
+    left: 45%;
+    z-index: 9999;
+}
 
-/* 이미지 모달 */
+.loading-circle .circle {
+    box-sizing: border-box !important;
+}
+
+.loading-overlay {
+    position: fixed;
+    opacity: 0.5;
+    width: 100%;
+    height: 100%;
+    z-index: 9998;
+    background-color: rgba(0, 0, 0, 0.5);
+    top: 0;
+    left: 0;
+    right: 0;
+    display: none;
+    pointer-events: none;
+}
+
+.input-field > textarea {
+  color :#ffffff;
+}
+
+.input-field > label.titleText {
+    font-size: 2rem;
+}
+
+.input-field > input.titleText {
+    height: 4rem;
+    font-size: 2rem;
+}
+
+.contentsTable > tbody > tr > td:first-child {
+    display: flex;
+    color: #9e9e9e;
+}
+
+.contentsTable > tbody > tr {
+    border-bottom: none;
+}
+
+.contentsTable > tbody > tr > td:first-child > i {
+    padding: 13px 8px 0px 0px;
+}
+
+.contentsTable > tbody > tr > td > input {
+    border-bottom: none !important;
+}
+
+.contentsTable > tbody > tr > td > p {
+    color: #9e9e9e;
+    font-size: 16px;
+}
+
+.contentsTable > tbody > tr > td {
+    padding: 0 !important;
+}
+
+input::placeholder {
+  color: #9e9e9e;
+}
+
+.slide-modal.bottom-sheet {
+    max-height: 100%;
+}
+
+.slide-modal {
+    max-height: 100%;
+    height: 100%;
+    background-color: #2F3437;
+    overflow-y: hidden;
+}
+
+.slide-modal > .modal-content {
+    height: 100%;
+    padding: 0;
+}
+
+.slide-modal > .modal-content > .row {
+    border-bottom: solid 1px #717476;
+    background-color: #3F4447;
+    margin-bottom: 0;
+}
+
+.slide-modal > .modal-content > .row > .chips {
+    border-bottom: none;
+}
+
+.slide-modal > .modal-content > .row > .modal-title {
+    color: #fff;
+    font-size: 1.3rem;
+}
+
+.slide-modal > .modal-content > .row > .modal-btn {
+    color: #2EAADC;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.slide-modal > .modal-content > .collection .collection-item.avatar:first-child {
+}
+
+.slide-modal > .modal-content > .collection .collection-item.avatar {
+    min-height: 45px;
+    background-color: #3F4447;
+    color: #fff;
+    font-size: 1.1rem;
+    border-top: solid 1px #717476;
+    border-bottom: none;
+}
+
+.slide-modal > .modal-content > .collection .collection-item.avatar > p {
+    padding-top: 3.2%;
+}
+
+.slide-modal > .modal-content > .row > .chips {
+    padding-left: 10px;
+}
+
+.slide-modal > .modal-content > .row > .chips > .chip {
+    margin-top: 3%;
+}
+
+.slide-modal > .modal-footer {
+    background-color: #3F4447;
+    border-top: solid 1px #717476;
+    padding: 0px;
+}
+
+.slide-modal .chips input[type=text]:focus {
+    border-bottom: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}

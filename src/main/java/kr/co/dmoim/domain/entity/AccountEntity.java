@@ -1,25 +1,17 @@
 package kr.co.dmoim.domain.entity;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@Setter
 @Entity
 @Table(name = "account")
 public class AccountEntity {
 
-
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "account_seq")
-    private Long seqAccount;
-
     @Column(length = 100, nullable = false, name = "account_id")
     private String idAccount;
 
@@ -36,8 +28,7 @@ public class AccountEntity {
     private String roleAccount;
 
     @Builder
-    public AccountEntity(Long seqAccount, String idAccount, String passwordAccount, String nameAccount, String emailAccount, String roleAccount){
-        this.seqAccount = seqAccount;
+    public AccountEntity(String idAccount, String passwordAccount, String nameAccount, String emailAccount, String roleAccount){
         this.idAccount = idAccount;
         this.passwordAccount = passwordAccount;
         this.nameAccount = nameAccount;

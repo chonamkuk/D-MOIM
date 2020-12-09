@@ -15,7 +15,6 @@ import java.util.Collection;
 @NoArgsConstructor
 public class AccountDto implements UserDetails {
 
-    private Long seqAccount;
     private String idAccount;
     private String passwordAccount;
     private String nameAccount;
@@ -24,7 +23,6 @@ public class AccountDto implements UserDetails {
 
     public AccountEntity toEntity() {
         AccountEntity accountEntity = AccountEntity.builder()
-                .seqAccount(seqAccount)
                 .idAccount(idAccount)
                 .passwordAccount(passwordAccount)
                 .nameAccount(nameAccount)
@@ -36,7 +34,6 @@ public class AccountDto implements UserDetails {
 
     @Builder
     public AccountDto(Long seqAccount, String idAccount, String passwordAccount, String nameAccount, String emailAccount, String roleAccount) {
-        this.seqAccount = seqAccount;
         this.idAccount = idAccount;
         this.passwordAccount = passwordAccount;
         this.nameAccount = nameAccount;

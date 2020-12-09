@@ -155,8 +155,8 @@ public class AsController {
      * @throws Exception
      */
     @GetMapping("/update.do")
-    public String update(Model model, AsDto asDto, SearchDto searchDto
-            , final PageRequest pageable, HttpServletResponse response) throws Exception {
+    public String update(Model model, AsDto asDto, SearchDto searchDto,
+                         final PageRequest pageable, HttpServletResponse response) throws Exception {
         if(asService.passwordChk(asDto)) {
             AsDto resultDto = asService.getAsDetail(asDto.getSeqAs());
             List<AttachDto> attachDtoList = attachService.getAttachInfoList(resultDto.getIdAttach());
