@@ -4,6 +4,7 @@ import kr.co.dmoim.PropertyConfig;
 import kr.co.dmoim.domain.entity.AttachEntity;
 import kr.co.dmoim.domain.repository.AttachRepository;
 import kr.co.dmoim.dto.AsDto;
+import kr.co.dmoim.dto.IjDto;
 import kr.co.dmoim.dto.AttachDto;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class AttachService {
     private AttachRepository attachRepository;
 
     @Autowired
-    private PropertyConfig propertyConfig;
+            private PropertyConfig propertyConfig;
 
     @Transactional
     public String saveAttachInfo(AttachDto attachDto) {
@@ -264,6 +265,23 @@ public class AttachService {
 //            try{imgWriter.dispose();}catch(Exception e) {e.printStackTrace();}
 //            try{imageOutputStream.close();}catch(Exception e) {e.printStackTrace();}
         }
+    }
+    @Transactional
+    public void updateDelYn(AsDto asDto) {
+        AttachDto attachDto = this.getAttachInfo(asDto.getIdAttach(), asDto.getSnFileAttach());
+        attachDto.setYnDel("Y");
+        attachDto.setModifierAttach(asDto.getWriterAs());
+        attachDto.setModdtAttach(LocalDateTime.now());
+        this.saveAttachInfo(attachDto);
+    }
+
+    @Transactional
+    public void updateDelYn(IjDto ijDto) {
+        AttachDto attachDto = this.getAttachInfo(ijDto.getIdAttach(), ijDto.getSnFileAttach());
+        attachDto.setYnDel("Y");
+        attachDto.setModifierAttach(ijDto.getWriterAs());
+        attachDto.setModdtAttach(LocalDateTime.now());
+        this.saveAttachInfo(attachDto);
     }
 
     @Transactional
