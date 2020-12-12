@@ -14,9 +14,10 @@ import java.util.Set;
  */
 public class ModelMapperUtils {
 
-    private static ModelMapper modelMapper = new ModelMapper();
+//    private static ModelMapper modelMapper = new ModelMapper();
 
     public static ModelMapper getModelMapper() {
+        ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
         return modelMapper;
     }

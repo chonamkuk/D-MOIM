@@ -1,10 +1,8 @@
 package kr.co.dmoim.controller;
 
-import kr.co.dmoim.domain.code.MeetStat;
 import kr.co.dmoim.dto.*;
 import kr.co.dmoim.service.MeetService;
 import kr.co.dmoim.util.AES256Util;
-import kr.co.dmoim.util.PageRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -13,13 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @AllArgsConstructor
@@ -47,7 +39,7 @@ public class MeetController {
      */
     @PostMapping("/write.do")
     public String write(MeetDto meetDto, @AuthenticationPrincipal AccountDto accountSession) throws Exception {
-        if(!meetDto.getPasswordMeet().isEmpty()) meetDto.setPasswordMeet(aes.encrypt(meetDto.getPasswordMeet()));
+//        if(!meetDto.getPasswordMeet().isEmpty()) meetDto.setPasswordMeet(aes.encrypt(meetDto.getPasswordMeet()));
 //        idAccounts.add(accountSession.getIdAccount()); // todo: 로그인 구현 후 작성자 아이디 추가
 
         Long seqMeet = meetService.save(meetDto);
@@ -74,8 +66,9 @@ public class MeetController {
 
         meetDto.setModDt(LocalDateTime.now());
 //        if(!meetDto.getPasswordMeet().isEmpty()) meetDto.setPasswordMeet(aes.encrypt(meetDto.getPasswordMeet()));
+        System.out.println("meetDto :: " + meetDto);
 
-        meetService.save(meetDto);
+        meetService.update(meetDto);
 
         return "redirect:/meet/detail.do?seqMeet="+meetDto.getSeqMeet();
     }

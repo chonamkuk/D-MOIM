@@ -38,7 +38,7 @@ public class LoginController {
         accountDto.setEmailAccount("master@bikego.co.kr");
         accountDto.setRoleAccount("ADMIN");
 
-        accountService.saveAccount(accountDto);
+//        accountService.saveAccount(accountDto);
 
         return "/main/main";
     }
