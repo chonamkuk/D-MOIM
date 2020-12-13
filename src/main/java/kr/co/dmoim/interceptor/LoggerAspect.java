@@ -51,7 +51,7 @@ public class LoggerAspect {
         //System.out.println("실행됨");
 
         try {
-            Object result = proceedingJoinPoint.getArgs();
+            Object result = proceedingJoinPoint.proceed();
             HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest(); // request 정보를 가져온다.
 
             String controllerName = proceedingJoinPoint.getSignature().getDeclaringType().getSimpleName();
